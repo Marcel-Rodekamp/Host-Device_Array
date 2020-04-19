@@ -7,13 +7,13 @@ It is still in development, sofar only some basic access members are avaialble.
 
 ## Initializing the class 
 ### Parametized Constructor
-The class has no default constructor, but can be initialized with a parameterised constructor
+The class has no default constructor, but can be initialized with a parameterised constructor for any type T (`template<class T>`) and size S (`size_t`)
 ```c++
 #include "src/array.h"
 
 int main(void){
-    // this will create an HDA::Array containing doubles and having 100 elements
-    HDA::Array<double> array(100);
+    // this will create an HDA::Array
+    HDA::Array<T> array(S);
  
     return EXIT_SUCCESS;
 }
@@ -26,9 +26,9 @@ In order to have a propper host device access the `new` operator can be used:
 #include "src/array.h"
 
 int main(void){
-    // this will create a pointer to one HDA::Array containing doubles and having 100 elements 
+    // this will create a pointer to one HDA::Array  
     // this pointer uses the CUDA Managed space and can thus be accessed on host and device
-    HDA::Array<double> * array = new HDA::Array<double> (100);
+    HDA::Array<T> * array = new HDA::Array<T> (S);
  
     // At the end the array needs to be deleted
     delete array;
@@ -43,14 +43,14 @@ There are a bunch of different accessing methods implemented.
 Once initialized with the `new` operator the class can be passed by reference to functions and kernels:
 ```c++
 // definition example of CUDA kernel
-__global__ void kernel_name(HDA::Array<type> & );
+__global__ void kernel_name(HDA::Array<T> & );
 // definition example of host function 
-void function_name(HDA::Array<type> & );
+void function_name(HDA::Array<T> & );
 ```
 Note that the new operator returns a pointer thus calling these requires dereferencing:
 ```c++
 // Create array of type with the size elements 
-auto array = new HDA::Array<type> (size);
+auto array = new HDA::Array<T> (S);
 
 // call kernel
 kernel_name<<<Blogs,Threads>>> (*array);
