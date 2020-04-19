@@ -6,6 +6,7 @@ It is still in development, sofar only some basic access members are avaialble.
 # Features
 
 ## Initializing the class 
+### Parametized Constructor
 The class has no default constructor, but can be initialized with a parameterised constructor
 ```c++
 #include "src/array.h"
@@ -17,7 +18,10 @@ int main(void){
     return EXIT_SUCCESS;
 }
 ```
-Creating the array in this way does not provide a direct accessibility on the device (it is created on the host). However, it still contains a device pointer which can be accessed for example with the `HDA::Array<double> data()` member. In order to have a propper host device access the `new` operator can be used:
+Creating the array in this way does not provide a direct accessibility on the device (it is created on the host). However, it still contains a device pointer which can be accessed for example with the `HDA::Array<double> data()` member. 
+
+### `new` Operator
+In order to have a propper host device access the `new` operator can be used:
 ``` c++
 #include "src/array.h"
 
@@ -35,6 +39,28 @@ int main(void){
 ```
 
 ## Accessing Data
+There are a bunch of different accessing methods implemented.
+Once initialized with the `new` operator the class can be passed by reference to functions and kernels:
+```c++
+// definition example of CUDA kernel
+__global__ void kernel_name(HDA::Array<type> & );
+// definition example of host function 
+void function_name(HDA::Array<type> & );
+```
+Note that the new operator returns a pointer thus calling these requires dereferencing:
+```c++
+// Create array of type with the size elements 
+auto array = new HDA::Array<type> (size);
+
+// call kernel
+kernel_name<<<Blogs,Threads>>> (*array);
+
+// call host function
+function_name(*array);
+
+```
+
+### `operator []`
 
 ## Synchronize
 
