@@ -60,7 +60,31 @@ function_name(*array);
 
 ```
 
-### `operator []`
+The following Access methods are implemented and are callable on device and host.
+* `__host__ __device__ T & HDA::Array<T>::operator[](size_t)`
+    * Write access to the data at given index.
+* `__host__ __device__ const T & HDA::Array<T>::operator[](size_t) const `
+    * Read access to the data at given index.
+* `__host__ __device__ T & HDA::Array<T>::at(size_t)`
+    * Write access to the data at given index.
+* `__host__ __device__ const T & HDA::Array<T>::at(size_t) const`
+    * Read access to the data at given index.
+* `__host__ __device__ T & HDA::Array<T>::front()`
+    * Write access to the data at index = 0.
+* `__host__ __device__ const T & HDA::Array<T>::front() const`
+    * Read access to the data at index = 0.
+* `__host__ __device__ T & HDA::Array<T>::back()`
+    * Write access to the data at max index.
+* `__host__ __device__ const T & HDA::Array<T>::back() const`
+    * Read access to the data at max index.
+* `__host__ __device__ T * HDA::Array<T>::data()`
+    * Returns the pointer to the data either on host or device, where ever it is called. Write access is granted.
+* `__host__ __device__ const T * HDA::Array<T>::back() const`
+    * Returns the pointer to the data either on host or device, where ever it is called. Read access only.
+* `__host__ __device__ const size_t HDA::Array<T>::size() const`
+    * Returns the number of elements of the pointer (S).
+* `__host__ __device__ const size_t HDA::Array<T>::count() const`
+    * Returns the data size of the array (`S * sizeof(T)`)
 
 ## Synchronize
 
