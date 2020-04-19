@@ -88,6 +88,13 @@ The following Access methods are implemented and are callable on device and host
 
 ## Synchronize
 
+To take care of synchronization of host and device data two simple functions are implemented
+* `__host__ void HDA::Array<T>::hostToDeviceSync()`
+    * Copies the host data to the device
+* `__host__ void HDA::Array<T>::deviceToHostSync()`
+    * Copies the device data to the host
+  
+
 # How To Compile
 
 The compilation is not fully worked out and is only tested on Ubuntu 18.04 LTS.
