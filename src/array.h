@@ -32,7 +32,7 @@ class Array{
         // Constructors
         // ==============================================================================
 
-        Array(const size_t t_size) : 
+        explicit Array(const size_t t_size) : 
             m_size(t_size), 
             m_count(t_size * sizeof(T))
         {
